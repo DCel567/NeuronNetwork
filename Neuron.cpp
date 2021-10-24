@@ -2,19 +2,19 @@
 #include <math.h>
 
 Neuron::Neuron(double value){
-    this->setValue(value);
+    this->set_value(value);
     this->activate();
     this->derive();
 }
 
 Neuron::Neuron(double value, Func func){
-    this->setValue(value);
+    this->set_value(value);
     this->funcType = func;
     this->activate();
     this->derive();
 }
 
-void Neuron::setValue(double value){
+void Neuron::set_value(double value){
     this->value = value;
 }
 

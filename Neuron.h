@@ -10,13 +10,13 @@ public:
     Neuron(double value);
     Neuron(double value, Func funcActivated);
 
-    void setValue(double value);
+    void set_value(double value);
     void activate();
     void derive();
 
-    double getValue(){ return this->value; }
-    double getActivateValue(){ return this->activatedValue; }
-    double getDerivedValue(){ return this->derivedValue; }
+    double get_value(){ return this->value; }
+    double get_activate_value(){ return this->activatedValue; }
+    double get_derived_value(){ return this->derivedValue; }
 
 private:
     double value;
