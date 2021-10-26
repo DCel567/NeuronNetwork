@@ -3,6 +3,7 @@
 #include <string>
 #include <math.h>
 #include "Neuron.h"
+#include "Matrix.h"
 
 
 int main(){
@@ -11,7 +12,5 @@ int main(){
     std::cout << "value:\t" << n1.get_value() << std::endl;
     std::cout << "activated value:\t" << n1.get_activate_value() << std::endl;
     std::cout << "derived value:\t" << n1.get_derived_value() << std::endl;
-
-    std::cout << "he-he" << std::endl;
 
 }
