@@ -37,8 +37,6 @@ void Neuron::derive(){
         this->derivedValue = 0;
         if(this->value > 0)
             this->derivedValue = 1;
-        //else if(this->value == 0)
-        //    this->derivedValue = 
     }
     else if(funcType == Func::TAHN)
         this->derivedValue = 1 - this->activatedValue * this->activatedValue;
