@@ -1,5 +1,11 @@
 #include <vector>
 #include <string>
+#include <math.h>
+
+class NNLayer;
+class NNWeight;
+class NNNeuron;
+class NNConnection;
 
 typedef std::vector< NNLayer* >  VectorLayers;
 typedef std::vector< NNWeight* >  VectorWeights;
@@ -82,3 +88,13 @@ public:
 
     double value;
 };
+
+
+double SIGMOID(double x){
+    return 1/(1 + exp(x));
+}
+
+double DSIGMOID(double x){
+    x = SIGMOID(x);
+    return x*(1 - x);
+}

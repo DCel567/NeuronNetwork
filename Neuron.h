@@ -15,7 +15,7 @@ public:
     void derive();
 
     double get_value(){}
-    double get_activate_value(){ return this->output; }
+    double get_activate_value(){ return this->value; }
     double get_derived_value(){ return this->derivedValue; }
 
 private:
