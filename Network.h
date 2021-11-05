@@ -1,6 +1,11 @@
+#pragma once
 #include <vector>
 #include <string>
 #include <math.h>
+#include <assert.h>
+
+#include "LocalMath.h"
+
 
 class NNLayer;
 class NNWeight;
@@ -33,10 +38,9 @@ public:
 
 // Layer class
 
-class NNLayer
-{
+class NNLayer{
 public:
-    NNLayer(std::string str, NNLayer* pPrev = nullptr );
+    NNLayer(std::string str, NNLayer* pPrev);
     virtual ~NNLayer();
     
     void Calculate();
@@ -48,6 +52,8 @@ public:
     NNLayer* m_pPrevLayer;
     VectorNeurons m_Neurons;
     VectorWeights m_Weights;
+
+    std::string tag;
 };
 
 
@@ -55,7 +61,7 @@ public:
 
 class NNNeuron{
 public:
-    NNNeuron( std::string str );
+    NNNeuron();
     virtual ~NNNeuron();
 
     void AddConnection( uint32_t iNeuron, uint32_t iWeight );
@@ -83,18 +89,8 @@ public:
 
 class NNWeight{
 public:
-    NNWeight( std::string str, double val = 0.0 );
+    NNWeight( double val = 0.0 );
     virtual ~NNWeight();
 
     double value;
 };
-
-
-double SIGMOID(double x){
-    return 1/(1 + exp(x));
-}
-
-double DSIGMOID(double x){
-    x = SIGMOID(x);
-    return x*(1 - x);
-}

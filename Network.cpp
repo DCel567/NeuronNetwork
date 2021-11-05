@@ -1,6 +1,13 @@
 #include "Network.h"
-#include <assert.h>
 
+
+
+// NNLayer::NNLayer(std::string str, NNLayer* pPrev){
+
+// }
+
+// NNWeight::NNWeight( double v ){
+// }
 
 void NeuralNetwork::Calculate(double* inputVector, uint32_t iCount, 
                double* outputVector /* =NULL */, 
@@ -91,7 +98,7 @@ void NNLayer::Calculate()
                    (*cit).NeuronIndex ]->output );
         }
         
-        n.output = SIGMOID( dSum );
+        n.output = sigmoid(dSum);
     }
 }
 
@@ -187,7 +194,7 @@ void NNLayer::Backpropagate( std::vector< double >& dErr_wrt_dXn /* in */,
     for ( ii=0; ii<m_Neurons.size(); ++ii )
     {
         output = m_Neurons[ ii ]->output;
-        dErr_wrt_dYn[ ii ] = DSIGMOID( output ) * dErr_wrt_dXn[ ii ];
+        dErr_wrt_dYn[ ii ] = d_sigmoid( output ) * dErr_wrt_dXn[ ii ];
     }
     
     // calculate equation (4): dErr_wrt_Wn = Xnm1 * dErr_wrt_Yn

@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 
-#include "Neuron.h"
+#include "LocalMath.h"
 
 
 
@@ -13,7 +13,7 @@ int main(){
     // std::cout << "activated value:\t" << n1.get_activate_value() << std::endl;
     // std::cout << "derived value:\t" << n1.get_derived_value() << std::endl;
 
-    std::vector<int> Victor{1, 2, 3, 4, 5, 6};
+    std::vector<int> Victor{1, 2, 3, 4};
 
 
 
@@ -23,4 +23,5 @@ int main(){
         std::cout << *joppa << std::endl;
     }
 
+    std::cout << uniform_random(0, 10) << std::endl;
 }
