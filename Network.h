@@ -40,7 +40,10 @@ public:
 
 class NNLayer{
 public:
-    NNLayer(std::string str, NNLayer* pPrev);
+    NNLayer(std::string str, NNLayer* pPrev){
+        this->tag = str;
+        this->m_pPrevLayer = pPrev;
+    }
     virtual ~NNLayer();
     
     void Calculate();
@@ -89,7 +92,9 @@ public:
 
 class NNWeight{
 public:
-    NNWeight( double val = 0.0 );
+    NNWeight( double val = 0.0 ){
+        this->value = val;
+    }
     virtual ~NNWeight();
 
     double value;

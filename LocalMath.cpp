@@ -18,6 +18,14 @@ double d_relu(double x){
     return (x <= 0) ? 0 : 1;
 }
 
+double lrelu(double x){
+    return (x <= 0) ? 0.01*x : x;
+}
+
+double d_lrelu(double x){
+    return (x <= 0) ? 0.01 : 1;
+}
+
 double uniform_random(double a, double b){
     std::random_device rd;
     std::mt19937 gen(rd());

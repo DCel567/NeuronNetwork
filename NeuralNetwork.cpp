@@ -13,7 +13,7 @@ int main(){
     // std::cout << "activated value:\t" << n1.get_activate_value() << std::endl;
     // std::cout << "derived value:\t" << n1.get_derived_value() << std::endl;
 
-    std::vector<int> Victor{1, 2, 3, 4};
+    std::vector<int> Victor{1, 2, 3, 4, 5, 6, 7};
 
 
 

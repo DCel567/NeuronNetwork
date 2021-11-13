@@ -10,4 +10,7 @@ double d_sigmoid(double x);
 double relu(double x);
 double d_relu(double x);
 
+double lrelu(double x);
+double d_lrelu(double x);
+
 double uniform_random(double a, double b);

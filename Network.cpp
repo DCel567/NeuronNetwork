@@ -1,13 +1,18 @@
 #include "Network.h"
 
 
+/// Can't use this here for some reason. Check Network.h for definitions.
 
 // NNLayer::NNLayer(std::string str, NNLayer* pPrev){
-
+//     this->tag = str;
+//     this->m_pPrevLayer = pPrev;
 // }
-
+//
 // NNWeight::NNWeight( double v ){
+//     this->value = v;
 // }
+
+
 
 void NeuralNetwork::Calculate(double* inputVector, uint32_t iCount, 
                double* outputVector /* =NULL */, 
@@ -149,10 +154,8 @@ void NeuralNetwork::Backpropagate(double *actualOutput,
             actualOutput[ ii ] - desiredOutput[ ii ];
     }
     
-    
-    // store Xlast and reserve memory for
-    // the remaining vectors stored in differentials
-    
+
+
     differentials[ iSize-1 ] = dErr_wrt_dXlast;  // last one
     
     for ( ii=0; ii<iSize-1; ++ii )
@@ -271,3 +274,13 @@ void NNLayer::Backpropagate( std::vector< double >& dErr_wrt_dXn /* in */,
         m_Weights[ jj ]->value = newValue;
     }
 }
+
+void NNNeuron::AddConnection(uint32_t iNeuron, uint32_t iWeight){
+    this->m_Connections.push_back(NNConnection(iNeuron, iWeight));
+}
+
+void NNNeuron::AddConnection(NNConnection const & con){
+    this->m_Connections.push_back(con);
+}
+
+//TODO NNConnection constructor
