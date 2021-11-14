@@ -1,6 +1,5 @@
 #include "Architecture.h"
 
-// simplified code
 
 bool Architecture::MNISTNet()
 {    
@@ -44,7 +43,7 @@ bool Architecture::MNISTNet()
     
     for ( ii=0; ii<156; ++ii )
     {
-        initWeight = 0.05 * uniform_random(-1, 1);
+        initWeight = 0.05 * uniform_random(0, 1);
         // My uniform random distribution
 
         pLayer->m_Weights.push_back( new NNWeight( initWeight ) );
@@ -116,7 +115,7 @@ bool Architecture::MNISTNet()
     
     for ( ii=0; ii<7800; ++ii )
     {
-        initWeight = 0.05 * uniform_random(-1, 1);
+        initWeight = 0.05 * uniform_random(0, 1);
         pLayer->m_Weights.push_back( new NNWeight( initWeight ) );
     }
     
@@ -196,7 +195,9 @@ bool Architecture::MNISTNet()
     
     for ( ii=0; ii<125100; ++ii )
     {
-        initWeight = 0.05 * uniform_random(-1, 1);
+        initWeight = 0.05 * uniform_random(0, 1);
+        initWeight = xavier_weight(0, 1, 100);
+        pLayer->m_Weights.push_back( new NNWeight( initWeight ) );
     }
     
     // Interconnections with previous layer: fully-connected
@@ -234,7 +235,9 @@ bool Architecture::MNISTNet()
     
     for ( ii=0; ii<1010; ++ii )
     {
-        initWeight = 0.05 * uniform_random(-1, 1);
+        //initWeight = 0.05 * uniform_random(0, 1);
+        initWeight = xavier_weight(0, 1, 10);
+        pLayer->m_Weights.push_back( new NNWeight( initWeight ) );
     }
     
     // Interconnections with previous layer: fully-connected
@@ -255,5 +258,5 @@ bool Architecture::MNISTNet()
     
     //SetModifiedFlag( TRUE ); было так, не знаю, для чего это
     
-    return TRUE;
+    return true;
 }
