@@ -34,18 +34,20 @@ bool Architecture::MNISTNet()
     // So, there are 13x13x6 = 1014 neurons, (5x5+1)x6 = 156 weights
     
     pLayer = new NNLayer( "Layer01", pLayer );
+    int32_t curr_layer_neurons = 1014;
+    int32_t curr_layer_weights = 156;
+
     NN.m_Layers.push_back( pLayer );
     
-    for ( ii=0; ii<1014; ++ii )
+    for ( ii=0; ii<curr_layer_neurons; ++ii )
     {
         pLayer->m_Neurons.push_back( new NNNeuron() );
     }
     
-    for ( ii=0; ii<156; ++ii )
+    for ( ii=0; ii<curr_layer_weights; ++ii )
     {
-        initWeight = 0.05 * uniform_random(0, 1);
-        // My uniform random distribution
-
+        //initWeight = 0.05 * uniform_random(0, 1);
+        initWeight = xavier_weight(0, 1, curr_layer_neurons);
         pLayer->m_Weights.push_back( new NNWeight( initWeight ) );
     }
     

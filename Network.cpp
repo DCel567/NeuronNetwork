@@ -1,23 +1,24 @@
 #include "Network.h"
 
 
-/// Can't use this here for some reason. Check Network.h for definitions.
+NNLayer::NNLayer(std::string str, NNLayer* pPrev){
+    this->tag = str;
+    this->m_pPrevLayer = pPrev;
+}
 
-// NNLayer::NNLayer(std::string str, NNLayer* pPrev){
-//     this->tag = str;
-//     this->m_pPrevLayer = pPrev;
-// }
-//
-// NNWeight::NNWeight( double v ){
-//     this->value = v;
-// }
+NNWeight::NNWeight( double v ){
+    this->value = v;
+}
 
+NNConnection::NNConnection(uint32_t neuron, uint32_t weight){
+        this->NeuronIndex = neuron;
+        this->WeightIndex = weight;
+    }
 
 
 void NeuralNetwork::Calculate(double* inputVector, uint32_t iCount, 
-               double* outputVector /* =NULL */, 
-               uint32_t oCount /* =0 */)
-                              
+               double* outputVector, 
+               uint32_t oCount)
 {
     VectorLayers::iterator lit = m_Layers.begin();
     VectorNeurons::iterator nit;
@@ -103,7 +104,7 @@ void NNLayer::Calculate()
                    (*cit).NeuronIndex ]->output );
         }
         
-        n.output = sigmoid(dSum);
+        n.output = relu(dSum);
     }
 }
 
@@ -153,9 +154,8 @@ void NeuralNetwork::Backpropagate(double *actualOutput,
         dErr_wrt_dXlast[ ii ] = 
             actualOutput[ ii ] - desiredOutput[ ii ];
     }
+
     
-
-
     differentials[ iSize-1 ] = dErr_wrt_dXlast;  // last one
     
     for ( ii=0; ii<iSize-1; ++ii )
@@ -197,7 +197,7 @@ void NNLayer::Backpropagate( std::vector< double >& dErr_wrt_dXn /* in */,
     for ( ii=0; ii<m_Neurons.size(); ++ii )
     {
         output = m_Neurons[ ii ]->output;
-        dErr_wrt_dYn[ ii ] = d_sigmoid( output ) * dErr_wrt_dXn[ ii ];
+        dErr_wrt_dYn[ ii ] = d_relu( output ) * dErr_wrt_dXn[ ii ];
     }
     
     // calculate equation (4): dErr_wrt_Wn = Xnm1 * dErr_wrt_Yn
@@ -283,4 +283,3 @@ void NNNeuron::AddConnection(NNConnection const & con){
     this->m_Connections.push_back(con);
 }
 
-//TODO NNConnection constructor

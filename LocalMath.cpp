@@ -37,6 +37,6 @@ double uniform_random(double a, double b){
 }
 
 double xavier_weight(double a, double b, int32_t neuron_num){
-    double a = 1 / sqrt( neuron_num/2 );
-    return a * uniform_random(0, 1);
+    double c = 1 / sqrt( neuron_num / 2 );
+    return c * uniform_random(a, b);
 }

@@ -5,5 +5,4 @@
 
 class Architecture{
     bool MNISTNet();
-
 };

@@ -23,8 +23,8 @@ typedef std::vector< NNConnection > VectorConnections;
 class NeuralNetwork
 {
 public:
-    NeuralNetwork();
-    virtual ~NeuralNetwork();
+    NeuralNetwork(){}
+    ~NeuralNetwork(){}
     
     void Calculate(double* inputVector, uint32_t iCount, 
         double* outputVector = nullptr, uint32_t oCount = 0);
@@ -40,11 +40,8 @@ public:
 
 class NNLayer{
 public:
-    NNLayer(std::string str, NNLayer* pPrev){
-        this->tag = str;
-        this->m_pPrevLayer = pPrev;
-    }
-    virtual ~NNLayer();
+    NNLayer(std::string str, NNLayer* pPrev = nullptr);
+    ~NNLayer(){}
     
     void Calculate();
     
@@ -64,8 +61,8 @@ public:
 
 class NNNeuron{
 public:
-    NNNeuron();
-    virtual ~NNNeuron();
+    NNNeuron(){}
+    ~NNNeuron(){}
 
     void AddConnection( uint32_t iNeuron, uint32_t iWeight );
     void AddConnection( NNConnection const & conn );
@@ -81,7 +78,7 @@ public:
 class NNConnection{
 public: 
     NNConnection(uint32_t neuron = UINT32_MAX, uint32_t weight = UINT32_MAX);
-    virtual ~NNConnection();
+    ~NNConnection(){}
 
     uint32_t NeuronIndex;
     uint32_t WeightIndex;
@@ -92,10 +89,9 @@ public:
 
 class NNWeight{
 public:
-    NNWeight( double val = 0.0 ){
-        this->value = val;
-    }
-    virtual ~NNWeight();
+    NNWeight( double val = 0.0 );
+    //virtual ~NNWeight();
+    ~NNWeight(){}
 
     double value;
 };

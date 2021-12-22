@@ -14,4 +14,4 @@ double lrelu(double x);
 double d_lrelu(double x);
 
 double uniform_random(double a, double b);
-double xavier_weight(double a, double b);
+double xavier_weight(double a, double b, int32_t neuron_num);

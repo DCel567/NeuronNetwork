@@ -1,27 +1,89 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <fstream>
+#include <cuchar>
 
-#include "LocalMath.h"
 
+typedef unsigned char uchar;
+
+uchar** read_mnist_images(std::string full_path, int& number_of_images, int& image_size) {
+    auto reverseInt = [](int i) {
+        unsigned char c1, c2, c3, c4;
+        c1 = i & 255, c2 = (i >> 8) & 255, c3 = (i >> 16) & 255, c4 = (i >> 24) & 255;
+        return ((int)c1 << 24) + ((int)c2 << 16) + ((int)c3 << 8) + c4;
+    };
+
+    std::ifstream file(full_path, std::ios::binary);
+
+    if(file.is_open()) {
+        int magic_number = 0, n_rows = 0, n_cols = 0;
+
+        file.read((char *)&magic_number, sizeof(magic_number));
+        magic_number = reverseInt(magic_number);
+
+        if(magic_number != 2051) std::cout << "Invalid MNIST image file!" << std::endl;
+
+        file.read((char *)&number_of_images, sizeof(number_of_images)), number_of_images = reverseInt(number_of_images);
+        file.read((char *)&n_rows, sizeof(n_rows)), n_rows = reverseInt(n_rows);
+        file.read((char *)&n_cols, sizeof(n_cols)), n_cols = reverseInt(n_cols);
+
+        std::cout << "num rows = " << n_rows << ", num_cols: " << n_cols << std::endl;
+
+        image_size = n_rows * n_cols;
+
+        uchar** _dataset = new uchar*[number_of_images];
+        for(int i = 0; i < number_of_images; i++) {
+            _dataset[i] = new uchar[image_size];
+            file.read((char *)_dataset[i], image_size);
+        }
+        return _dataset;
+    } else {
+        std::cout << "Unable to open MNIST image file" << std::endl;
+    }
+}
+
+uchar* read_mnist_labels(std::string full_path, int& number_of_labels) {
+    auto reverseInt = [](int i) {
+        unsigned char c1, c2, c3, c4;
+        c1 = i & 255, c2 = (i >> 8) & 255, c3 = (i >> 16) & 255, c4 = (i >> 24) & 255;
+        return ((int)c1 << 24) + ((int)c2 << 16) + ((int)c3 << 8) + c4;
+    };
+
+    std::ifstream file(full_path, std::ios::binary);
+
+    if(file.is_open()) {
+        int magic_number = 0;
+        file.read((char *)&magic_number, sizeof(magic_number));
+        magic_number = reverseInt(magic_number);
+
+        if(magic_number != 2049) std::cout << "Invalid mnist label file" << std::endl;
+
+        file.read((char *)&number_of_labels, sizeof(number_of_labels)), number_of_labels = reverseInt(number_of_labels);
+
+        std::cout << "number of labels: " << number_of_labels << std::endl;
+
+        uchar* _dataset = new uchar[number_of_labels];
+        for(int i = 0; i < number_of_labels; i++) {
+            file.read((char*)&_dataset[i], 1);
+            //std::cout << _dataset[i] << std::endl;
+        }
+        return _dataset;
+    } else {
+        std::cout << "Unable to open mnist label file" << std::endl;
+    }
+}
 
 
 int main(){
-    // Neuron n1 = Neuron(1.0, Func::SIGM);
+    //read_bytes();
+    int mnist_labels_amount = 10000;
+    int mnist_image_size = 28;
+    std::string mnist_images_path = "/home/george/Programming/Workspaces/VS Code Workspace/CPP/NeuralNetwork/mnist/train-images-idx3-ubyte";
+    std::string mnist_labels_path = "/home/george/Programming/Workspaces/VS Code Workspace/CPP/NeuralNetwork/mnist/train-labels-idx1-ubyte";
 
-    // std::cout << "value:\t" << n1.get_value() << std::endl;
-    // std::cout << "activated value:\t" << n1.get_activate_value() << std::endl;
-    // std::cout << "derived value:\t" << n1.get_derived_value() << std::endl;
-
-    std::vector<int> Victor{1, 2, 3, 4, 5, 6, 7};
-
-
-
-    std::vector<int>::iterator joppa = Victor.begin(); 
-
-    for(joppa; joppa < Victor.end(); joppa++){
-        std::cout << *joppa << std::endl;
-    }
-
-    std::cout << uniform_random(0, 10) << std::endl;
+    uchar**  pics = read_mnist_images(mnist_images_path, mnist_labels_amount, mnist_image_size);
+    uchar* labels = read_mnist_labels(mnist_labels_path, mnist_labels_amount); 
+    std::cout << labels[0] << std::endl;
+    //read_mnist();
 }
